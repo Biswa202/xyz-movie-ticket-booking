@@ -1,0 +1,56 @@
+openapi: 3.0.1
+info:
+  title: XYZ Movie Booking API
+  version: 1.0.0
+
+paths:
+  /api/shows:
+    get:
+      summary: Browse shows
+      parameters:
+        - name: movieId
+          in: query
+          required: true
+          schema:
+            type: integer
+        - name: city
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        "200":
+          description: OK
+
+  /api/bookings:
+    post:
+      summary: Book tickets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookRequest"
+      responses:
+        "200":
+          description: Booking confirmed
+
+components:
+  schemas:
+    BookRequest:
+      type: object
+      properties:
+        showId:
+          type: integer
+        customerId:
+          type: integer
+        seatIds:
+          type: array
+          items:
+            type: integer
